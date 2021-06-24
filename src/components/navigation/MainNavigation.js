@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './MainNavigation.css'
 const MainNavigation = (props) => {
     const token = props.token;
+    const logout = props.logout;
     return (
         <header className="main-navigation">
 
@@ -17,7 +18,10 @@ const MainNavigation = (props) => {
                     {!token && <li><NavLink to="/auth">Authenticate</NavLink></li>}
                     <li><NavLink to="/events">Events</NavLink></li>
                     {token &&
+                    <>
                         <li><NavLink to="/bookings">Bookings</NavLink></li>
+                        <li><button onClick={logout}>Logout</button></li>
+                    </>
                     }
                 </ul>
             </nav>

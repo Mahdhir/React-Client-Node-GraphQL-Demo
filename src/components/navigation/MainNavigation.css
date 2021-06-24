@@ -1,13 +1,15 @@
 .main-navigation{
     position: fixed;
     left: 0;
-    top:0;
+    top: 0;
     width: 100%;
     height: 3.5rem;
-    background-color: rgb(18, 189, 189);
-    padding: 0 1rem;
+    background-color: rgb(94, 0, 148);
+    padding: 0 2rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .main-navigation__logo h1{
@@ -21,24 +23,37 @@
 
 .main-navigation__items ul{
     display: flex;
-    margin: 0 0 0 1.5rem;
+    margin: 0;
     padding: 0;
     list-style: none;
+    align-items: center;
 }
 
 .main-navigation__items li{
     margin: 0 1rem;
 }
 
-.main-navigation__items a, .main-navigation__logo a{
+.main-navigation__items a, 
+.main-navigation__logo a,
+.main-navigation__items button
+{
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: white;
+    padding: 0.25rem 1rem;
+    border:none;
+    font:inherit;
+    background: transparent;
+    cursor: pointer;
+    margin: 0;
 }
 
-.main-navigation__items a:hover,.main-navigation__items a:active,.main-navigation__items a.active{
-    color: rgb(255, 255, 255);
+.main-navigation__items a:hover,
+.main-navigation__items a:active,
+.main-navigation__items a.active,
+.main-navigation__items button:hover,
+.main-navigation__items button:active{
+    color: rgb(68, 3, 173);
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
-.main-navigation__logo :hover, .main-navigation__logo a:active{
-    color: rgb(207, 207, 207);
-}

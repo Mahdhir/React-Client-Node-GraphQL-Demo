@@ -3,3 +3,38 @@ body {
   padding: 10;
   font-family: sans-serif;
 }
+
+.form-control label, .form-control input{
+  width: 100%;
+  display: block;
+}
+
+.form-control{
+  margin-bottom: 1rem;
+}
+
+.form-control label{
+  margin-bottom: 0.5rem;
+}
+
+.form-actions button,
+.btn{
+  background-color: rgb(108, 38, 221);
+  border: 1px solid rgb(108, 38, 221);
+  font:inherit;
+  border-radius: 5px;
+  padding:0.25rem 1rem;
+  margin-right: 1rem;
+  box-shadow: 1px 1px 5px #00000036;
+  color:rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.form-actions button:active,
+.form-actions button:hover,
+.btn:hover,
+.btn:active{
+  background-color:rgb(44, 2, 112) ;
+  border: 1px solid rgb(44, 2, 112);
+
+}
