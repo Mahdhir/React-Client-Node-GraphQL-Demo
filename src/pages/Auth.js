@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './Auth.css';
 import axios from 'axios';
+import AuthContext from '../context/auth-context';
+
 const AuthPage = () => {
     const emailEl = useRef(null);
     const passwordEl = useRef(null);
     const [isLogin, setIsLogin] = useState(true);
-
+    const authContext = useContext(AuthContext);
     const switchModeHandler = () => {
         setIsLogin(!isLogin);
     }
@@ -53,7 +55,8 @@ const AuthPage = () => {
             if (response.status !== 200 && response.status !== 201) {
                 throw new Error("Failed");
             }
-            console.log(response.data);
+            const resData = response.data.data;
+            authContext.login(resData.login.token,resData.login.userId);
         } catch (error) {
             console.log(error.response?error.response:error);
         }

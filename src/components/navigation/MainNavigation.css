@@ -30,11 +30,15 @@
     margin: 0 1rem;
 }
 
-.main-navigation__items a{
+.main-navigation__items a, .main-navigation__logo a{
     text-decoration: none;
     color: rgb(0, 0, 0);
 }
 
 .main-navigation__items a:hover,.main-navigation__items a:active,.main-navigation__items a.active{
     color: rgb(255, 255, 255);
+}
+
+.main-navigation__logo :hover, .main-navigation__logo a:active{
+    color: rgb(207, 207, 207);
 }
