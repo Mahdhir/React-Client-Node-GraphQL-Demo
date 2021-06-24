@@ -4,7 +4,9 @@ body {
   font-family: sans-serif;
 }
 
-.form-control label, .form-control input{
+.form-control label,
+.form-control input,
+.form-control textarea{
   width: 100%;
   display: block;
 }
