@@ -2,6 +2,8 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import BookingList from '../components/Bookings/BookingList/BookingList';
+import BookingControl from '../components/Bookings/BookingsControl/BookingControl';
+import BookingsChart from '../components/Bookings/Chart/BookingsChart';
 import Spinner from '../components/Spinner/Spinner';
 import AuthContext from '../context/auth-context';
 
@@ -9,6 +11,7 @@ import AuthContext from '../context/auth-context';
 function BookingsPage() {
     const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [outputType,setOutputType] = useState('list');
     const authContext = useContext(AuthContext);
     const isActive = useRef(true);
     useEffect(() => {
@@ -30,6 +33,7 @@ function BookingsPage() {
                             _id
                             title
                             date
+                            price
                         }
                     }
                 }
@@ -64,13 +68,16 @@ function BookingsPage() {
     const bookingDeleteHandler = async (bookingId) => {
         const payload = {
             query: `
-            mutation {
-                cancelBooking(bookingId: "${bookingId}"){
+            mutation CancelBooking($id:ID!){
+                cancelBooking(bookingId:$id){
                     _id,
                     title
                 }
             }
-            `
+            `,
+            variables:{
+                id:bookingId
+            }
         }
         try {
 
@@ -85,7 +92,7 @@ function BookingsPage() {
             }
             const resData = response.data.data;
             console.log(resData);
-            const resBookings = resData.bookings;
+            const resBookings = resData.cancelBooking;
             if (!resBookings)
                 throw new Error('Something went wrong');
             if (isActive.current){
@@ -101,13 +108,25 @@ function BookingsPage() {
         }
     }
 
+    const changeOutputTypeHandler = (type) => {
+        setOutputType(type);
+    }
+    let content = <Spinner/>;
+    if(!isLoading){
+        content = (
+            <>
+                <div>
+                    <BookingControl changeOutputTypeHandler={changeOutputTypeHandler} activeOutputType={outputType}/>
+                </div>
+                <div>
+                    {outputType==='list'?<BookingList bookings={bookings} onDelete={bookingDeleteHandler} />:<BookingsChart bookings={bookings}/>}
+                </div>
+            </>
+        );
+    }
     return (
         <>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-                <BookingList bookings={bookings} onDelete={bookingDeleteHandler} />
-            )}
+        {content}
         </>
     )
 }

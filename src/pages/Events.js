@@ -41,8 +41,8 @@ function EventsPage() {
 
         const payload = {
             query: `
-            mutation {
-                createEvent(eventInput:{title:"${event.title}",price:${event.price},date:"${event.date}",description:"${event.description}"}){
+            mutation CreateEvent($title:String!,$price:Float!,$date:String!,$desc:String!){
+                createEvent(eventInput:{title:$title,price:$price,date:$date,description:$desc}){
                     _id,
                     title
                     price
@@ -54,7 +54,13 @@ function EventsPage() {
                     }
                 }
             }
-            `
+            `,
+            variables:{
+                title:event.title,
+                price:event.price,
+                date:event.date,
+                desc:event.description
+            }
         }
 
         try {
@@ -143,14 +149,17 @@ function EventsPage() {
         // setIsLoading(true);
         const payload = {
             query: `
-            mutation {
-                bookEvent(eventId: "${selectedEvent._id}"){
+            mutation BookEvent($id:ID!){
+                bookEvent(eventId: $id){
                     _id,
                     createdAt,
                     updatedAt
                 }
             }
-            `
+            `,
+            variables:{
+                id:selectedEvent._id
+            }
         }
         try {
 

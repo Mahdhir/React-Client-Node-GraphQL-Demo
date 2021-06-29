@@ -19,29 +19,36 @@ const AuthPage = () => {
         if (email.trim().length === 0 || password.trim().length === 0)
             return;
 
-        console.log(email, password);
 
         let payload = {
             query: `
-            query {
-                login(email:"${email}",password:"${password}"){
+            query Login($email:String!,$pass:String!){
+                login(email:$email,password:$pass){
                     userId
                     token
                     tokenExpiration
                 }
             }
-            `
+            `,
+            variables:{
+                email:email,
+                pass:password
+            }
         }
         if (!isLogin) {
             payload = {
                 query: `
-                mutation {
-                    createUser(userInput:{email:"${email}",password:"${password}"}){
+                mutation CreateUser($email:String!,$pass:String!){
+                    createUser(userInput:{email:$email,password:$pass}){
                         _id,
                         email
                     }
                 }
-                `
+                `,
+                variables:{
+                    email:email,
+                    pass:password
+                }
             }
         }
 
